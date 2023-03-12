@@ -56,8 +56,11 @@ contract DogeCoin {
         require(amount <= balances[msg.sender],"transfer amount exceeds balance");
         
         uint fromBalance = balances[msg.sender];
-        balances[msg.sender] = fromBalance - amount;
-        balances[to] += amount;
+        
+				unchecked{
+					balances[msg.sender] = fromBalance - amount;
+	        balances[to] += amount;
+				}
 
         payments[to].push(Payment(to,amount));
     
